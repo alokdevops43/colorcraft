@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ColorCraft - Premium Color Palette and Gradient Generator. Lock colors, copy HEX/RGB/HSL, inspect contrast ratio, convert color modes, and save palettes.">
+    <title>ColorCraft — Premium Color Palette Generator</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="colorcraft-body dark-theme">
+    <!-- Header -->
+    <header class="app-header neo-border-bottom">
+        <div class="header-brand">
+            <a href="#" class="brand-link cabinet-grotesk-heading" aria-label="ColorCraft Home">
+                🎨 COLORCRAFT
+            </a>
+        </div>
+        <nav class="header-nav" aria-label="Navigation Menu Bar">
+            <ul class="nav-menu">
+                <li><a href="#generator-section" class="nav-menu-link">Generate</a></li>
+                <li><a href="#gradient-section" class="nav-menu-link">Gradients</a></li>
+                <li><a href="#converter-section" class="nav-menu-link">Converter</a></li>
+                <li><a href="#favorites-section" class="nav-menu-link">Favorites</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <button type="button" class="btn-theme-toggle neo-btn" id="theme-toggle" aria-label="Toggle Dark/Light Mode">☀️</button>
+            <button type="button" class="btn-export-quick neo-btn" id="btn-export-quick-trigger">Export All</button>
+        </div>
+    </header>
+
+    <!-- Main Viewport -->
+    <main class="app-viewport">
+        <!-- Hero Section -->
+        <section class="hero-section" id="hero-section" aria-labelledby="hero-title">
+            <div class="hero-content">
+                <h1 id="hero-title" class="hero-heading cabinet-grotesk-heading">Generate Stunning Color Palettes.</h1>
+                <p class="hero-description">Create random palettes, lock coordinates, export gradient transitions, inspect contrast accessibility, and save favorite combinations.</p>
+                <div class="hero-actions-row">
+                    <a href="#generator-section" class="btn-hero-cta neo-btn neo-btn-primary">Generate Palette</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Palette Generator Section -->
+        <section class="generator-section" id="generator-section" aria-labelledby="generator-title">
+            <h2 id="generator-title" class="visually-hidden">Color Palette Board</h2>
+            
+            <!-- Palette Columns Container -->
+            <div class="palette-columns-grid" id="palette-columns-grid">
+                <!-- Injected dynamically via script -->
+            </div>
+
+            <!-- Controls Panel -->
+            <div class="palette-controls-row neo-border neo-shadow">
+                <div class="controls-left">
+                    <button type="button" class="ctrl-btn neo-btn neo-btn-primary" id="btn-random-all">Generate New</button>
+                    <button type="button" class="ctrl-btn neo-btn" id="btn-random-unlocked">Randomize Unlocked</button>
+                    <button type="button" class="ctrl-btn neo-btn" id="btn-reset-palette">Reset</button>
+                </div>
+                <div class="controls-right">
+                    <button type="button" class="ctrl-btn neo-btn" id="btn-copy-palette">Copy Entire</button>
+                    <button type="button" class="ctrl-btn neo-btn" id="btn-export-palette">Export</button>
+                    <button type="button" class="ctrl-btn neo-btn" id="btn-save-palette">Save Combo</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Accessibility Checker & Color Converter Block -->
+        <section class="color-info-section" id="converter-section" aria-labelledby="info-title">
+            <h2 id="info-title" class="section-title cabinet-grotesk-heading">Color Analysis</h2>
+            
+            <div class="analysis-split-row">
+                <!-- Color Converter Card -->
+                <div class="info-card neo-border neo-shadow" id="converter-card">
+                    <h3 class="card-title cabinet-grotesk-heading">Instant Color Converter</h3>
+                    <form class="converter-form" id="color-converter-form">
+                        <div class="form-field">
+                            <label for="conv-hex" class="field-label font-bold">HEX</label>
+                            <input type="text" id="conv-hex" class="field-input neo-border" value="#4F46E5">
+                        </div>
+                        <div class="form-field">
+                            <label for="conv-rgb" class="field-label font-bold">RGB</label>
+                            <input type="text" id="conv-rgb" class="field-input neo-border" value="rgb(79, 70, 229)">
+                        </div>
+                        <div class="form-field">
+                            <label for="conv-hsl" class="field-label font-bold">HSL</label>
+                            <input type="text" id="conv-hsl" class="field-input neo-border" value="hsl(243, 75%, 59%)">
+                        </div>
+                        <div class="form-field">
+                            <label for="conv-hsv" class="field-label font-bold">HSV</label>
+                            <input type="text" id="conv-hsv" class="field-input neo-border" value="hsv(243, 69%, 90%)">
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Accessibility Checker Card -->
+                <div class="info-card neo-border neo-shadow" id="accessibility-card">
+                    <h3 class="card-title cabinet-grotesk-heading">Contrast Inspector</h3>
+                    
+                    <div class="contrast-demo-box neo-border" id="contrast-preview-box">
+                        <p class="contrast-preview-text" id="contrast-sample-text">Sample Text Preview</p>
+                    </div>
+
+                    <div class="contrast-metrics">
+                        <div class="metric-row">
+                            <span class="metric-label font-bold">Contrast Ratio:</span>
+                            <span class="metric-value cabinet-grotesk-heading" id="contrast-ratio-val">4.5:1</span>
+                        </div>
+                        <div class="badge-results-row">
+                            <span class="badge" id="badge-aa">AA PASS</span>
+                            <span class="badge" id="badge-aaa">AAA PASS</span>
+                        </div>
+                        <p class="suggestion-text" id="contrast-suggestion">Looks great. No text changes needed.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gradient Generator Section -->
+        <section class="gradient-section" id="gradient-section" aria-labelledby="gradient-title">
+            <h2 id="gradient-title" class="section-title cabinet-grotesk-heading">Gradient Maker</h2>
+            
+            <div class="gradient-split-row">
+                <!-- Controls Card -->
+                <div class="gradient-card-controls neo-border neo-shadow">
+                    <form class="gradient-form" id="gradient-generator-form">
+                        <div class="form-field">
+                            <label for="grad-type" class="field-label font-bold">Gradient Mode</label>
+                            <select id="grad-type" class="field-select neo-border">
+                                <option value="linear" selected>Linear Gradient</option>
+                                <option value="radial">Radial Gradient</option>
+                                <option value="conic">Conic Gradient</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="grad-angle" class="field-label font-bold">Angle (Degrees)</label>
+                            <input type="number" id="grad-angle" class="field-input neo-border" min="0" max="360" value="90">
+                        </div>
+                        <div class="form-field">
+                            <label for="grad-color-stop1" class="field-label font-bold">Stop 1 (Hex)</label>
+                            <input type="color" id="grad-color-stop1" class="field-color-picker" value="#4F46E5">
+                        </div>
+                        <div class="form-field">
+                            <label for="grad-color-stop2" class="field-label font-bold">Stop 2 (Hex)</label>
+                            <input type="color" id="grad-color-stop2" class="field-color-picker" value="#ffe17c">
+                        </div>
+                        <div class="gradient-action-row">
+                            <button type="button" class="neo-btn neo-btn-primary" id="btn-copy-gradient">Copy CSS Code</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Live Preview Card -->
+                <div class="gradient-card-preview neo-border neo-shadow" id="grad-live-preview-box">
+                    <span class="gradient-label cabinet-grotesk-heading">Live Preview</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Saved Palettes (Favorites) -->
+        <section class="favorites-section" id="favorites-section" aria-labelledby="favs-title">
+            <h2 id="favs-title" class="section-title cabinet-grotesk-heading">Saved Palettes</h2>
+            
+            <div class="empty-state-card neo-border neo-shadow" id="favorites-empty-state">
+                <span class="empty-icon">📁</span>
+                <h3 class="empty-title cabinet-grotesk-heading">No saved palettes yet.</h3>
+                <p class="empty-desc">Create combinations in the board above and click Save to store them in Favorites.</p>
+            </div>
+
+            <div class="saved-palettes-grid hidden-initially" id="favorites-cards-grid">
+                <!-- Injected dynamically via script -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Dialog Popups / Modals -->
+
+    <!-- Export Menu Modal -->
+    <dialog class="modal-dialog neo-border neo-shadow" id="dialog-export">
+        <div class="modal-header">
+            <h3 class="modal-title cabinet-grotesk-heading">Export Color Deck</h3>
+            <button type="button" class="btn-modal-close neo-btn" aria-label="Close dialog">✕</button>
+        </div>
+        <div class="modal-body-content">
+            <p class="modal-subtitle font-bold">Choose your output format:</p>
+            <div class="export-options-grid">
+                <button type="button" class="neo-btn" data-export-type="css">CSS Variables</button>
+                <button type="button" class="neo-btn" data-export-type="scss">SCSS Variables</button>
+                <button type="button" class="neo-btn" data-export-type="json">JSON format</button>
+                <button type="button" class="neo-btn" data-export-type="png">PNG Palette Image</button>
+                <button type="button" class="neo-btn" data-export-type="txt">TXT Document</button>
+            </div>
+        </div>
+        <form class="modal-footer-form" method="dialog">
+            <div class="modal-actions">
+                <button type="button" class="modal-btn-cancel neo-btn" value="cancel">Close</button>
+            </div>
+        </form>
+    </dialog>
+
+    <!-- Notifications Alert Layer -->
+    <aside class="toast-overlay-center" aria-live="polite" id="toast-overlay-container">
+        <!-- Injected dynamically via script -->
+    </aside>
+
+    <!-- Footer -->
+    <footer class="app-footer neo-border-top">
+        <span class="footer-copyright">&copy; 2026 ColorCraft. Designed for digital artists.</span>
+        <span class="footer-info">v1.4.0 Release</span>
+    </footer>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
